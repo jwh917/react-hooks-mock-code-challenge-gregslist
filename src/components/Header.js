@@ -1,9 +1,11 @@
 import React from "react";
 import Search from "./Search";
 
+
 function Header({setSearchInput, handleSubmit}) {
-  
+
   return (
+    <>
     <header>
       <h1>
         <span className="logo" role="img">
@@ -13,6 +15,8 @@ function Header({setSearchInput, handleSubmit}) {
       </h1>
       <Search setSearchInput={setSearchInput} handleSubmit={handleSubmit}/>
     </header>
+    </>
+
   );
 }
 
