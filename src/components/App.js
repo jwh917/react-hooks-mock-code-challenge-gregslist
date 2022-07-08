@@ -17,7 +17,7 @@ function App() {
   const [description, setDescription] = useState("")  
   const [location, setLocation] = useState("")
   const [image, setImage] = useState("")
-  // const
+  
 
 
 
@@ -42,13 +42,26 @@ function App() {
     setListings(updatedListing)
   }
 
+  function helpSort(isLocationSorted, listing1, listing2){
+    if(isLocationSorted === true){
+      return listing1.location.localeCompare(listing2.location, 'es', { sensitivity: 'base' })
+    }
+
+  }
+
+  const sortedListings = listings.map((listing) => listing).sort((listing1, listing2) => helpSort(isLocationSorted, listing1, listing2))
+
+  // const sortedListings = listings.map((listing) => listing).sort((listing1, listing2) => {
+  //   if(isLocationSorted === true){
+  //     return listing1.location.localeCompare(listing2.location, 'es', { sensitivity: 'base' })
+  //   }
+  
+  // })
+
+
+
   function handleSort() {
 		setIsLocationSorted((prevState) => !prevState) 
-    const sortedListings = [...listings].sort((listing1, listing2) => listing1.location.localeCompare(listing2.location, 'es', { sensitivity: 'base' }))
-
-    if(!isLocationSorted){
-      setListings(sortedListings)
-    }
   }
 
   function descriptionInput(event){
@@ -105,8 +118,8 @@ function App() {
     <div className="app">
       <Header setSearchInput={setSearchInput} handleSubmit={handleSubmit} handleSort={handleSort}/>
       <ListingsForm handleSubmitListingsForm={handleSubmitListingsForm} descriptionInput={descriptionInput} locationInput={locationInput} imageUrlInput={imageUrlInput}/>
-      <SortingButton handleSort={handleSort}/>
-      <ListingsContainer listings={listings} handleStateDel={handleStateDel}/>
+      <SortingButton handleSort={handleSort} isLocationSorted={isLocationSorted}/>
+      <ListingsContainer listings={sortedListings} handleStateDel={handleStateDel}/>
     </div>
   );
 }
